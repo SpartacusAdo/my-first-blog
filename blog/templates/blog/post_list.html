@@ -1,26 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Post list</title>
-</head>
-<body>
-    <div>
-        <h1><a href="/">Django Girls Blog</a></h1>
-    </div>
+{% extends 'blog/base.html' %}
 
-    <div><hr>
-        <p>published: 14.06.2014, 12:14</p>
-        
-            {% for post in posts %}
-            <hr><tr>  
-                <td>{{  post.title }}</td>
-                <td>{{  post.published_date }}</td>
-                <td>{{  post.text|linebreaksbr }}</td>
-              </tr> 
-       
-      {% endfor %}
-</body>
-</html>
+{% block content %}
+    {% for post in posts %}
+        <div class="post">
+            <div class="date">
+                {{ post.published_date }}
+            </div>
+            <h2><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h2>
+            
+            <p>{{ post.text|linebreaksbr }}</p>
+        </div>
+    {% endfor %}
+{% endblock %}
